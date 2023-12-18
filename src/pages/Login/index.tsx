@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login() {
-    const [login, setLogin] = useState({ user: '', password: '' });
+    const [login, setLogin] = useState({ id: '', password: '' });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     async function handleUsernameLogin() {
         try {
             setLoading(true);
+            const { id, password } = login;
             const response = await fetch('http://localhost:3000/api/login', {
                 method: 'post',
                 headers: {
@@ -16,11 +17,11 @@ export default function Login() {
                 },
                 credentials: 'include',
                 mode: 'cors',
-                body: JSON.stringify({ login: login.user, password: login.password })
+                body: JSON.stringify({ id, password })
             })
             setLoading(false)
             if (response.status === 200) {
-                navigate('.')
+                navigate('')
             }
         } catch (err) {
             console.log(err);
@@ -29,7 +30,7 @@ export default function Login() {
 
     return <div className="h-screen flex justify-center items-center">
         <div className="border p-4 flex flex-col h-fit">
-            <input type="text" placeholder="Email" value={login.user} onChange={e => setLogin({ ...login, user: e.target.value })} />
+            <input type="text" placeholder="Email" value={login.id} onChange={e => setLogin({ ...login, id: e.target.value })} />
             <input type="password" placeholder="Password" value={login.password} onChange={e => setLogin({ ...login, password: e.target.value })} />
             <button onClick={handleUsernameLogin} disabled={loading}>Log in</button>
             <button disabled={loading}>Log in with github</button>
