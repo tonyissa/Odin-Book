@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import type { Error } from '../../types/types';
 
 export default function CreateAccount() {
     const [account, setAccount] = useState({ email: '', username: '', password: '', confirm: '' });
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState<Error>([]);
     const navigate = useNavigate();
     
     async function createAccount() {
@@ -24,6 +26,8 @@ export default function CreateAccount() {
             setLoading(false);
             if (response.status === 200) {
                 navigate('.', { state: { user: parsed } })
+            } else {
+                setErrors(parsed);
             }
         } catch (err) {
             console.log(err);
@@ -37,6 +41,11 @@ export default function CreateAccount() {
             <input type="password" placeholder="Password" value={account.password} onChange={e => setAccount({ ...account, password: e.target.value })} />
             <input type="password" placeholder="Confirm password" value={account.confirm} onChange={e => setAccount({ ...account, confirm: e.target.value })} />
             <button onClick={createAccount} disabled={loading}>Create account</button>
+            <ul>
+                {errors.map((error, i) => {
+                    return <li className='error-text' key={i}>{error.msg}</li>
+                })}
+            </ul>
         </div>
     </div>
 }

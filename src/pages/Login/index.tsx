@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 export default function Login() {
     const [login, setLogin] = useState({ id: '', password: '' });
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     async function handleUsernameLogin() {
@@ -22,6 +23,9 @@ export default function Login() {
             setLoading(false)
             if (response.status === 200) {
                 navigate('')
+            } else {
+                const parsed = await response.json();
+                setError(parsed.message);
             }
         } catch (err) {
             console.log(err);
@@ -37,6 +41,9 @@ export default function Login() {
             <button disabled={loading}>Log in with google</button>
             <hr />
             <button><Link to='create-account'>Create account</Link></button>
+            <ul>
+                <li className='error-text'>{error}</li>
+            </ul>
         </div>
     </div>
 }
