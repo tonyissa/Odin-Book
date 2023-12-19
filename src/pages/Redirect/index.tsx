@@ -16,7 +16,6 @@ export default function Redirect() {
                     credentials: 'include'
                 })
                 const parsed = await response.json();
-                console.log(parsed);
                 if (response.status === 200) {
                     setUser(parsed.user);
                 }
@@ -30,9 +29,8 @@ export default function Redirect() {
         } else {
             checkAuth();
         }
-        
         setLoading(false);
-    })
+    }, [location.state])
 
     if (!loading) {
         return user ? <Feed /> : <Login />;
