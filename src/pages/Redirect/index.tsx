@@ -4,7 +4,7 @@ import Login from '../Login/index';
 import { useState, useEffect } from 'react';
 
 export default function Redirect() {
-    const [loading, setLoading] = useState(true);
+    const [redirect, setRedirect] = useState(false);
     const [user, setUser] = useState();
     const location = useLocation();
 
@@ -29,10 +29,11 @@ export default function Redirect() {
         } else {
             checkAuth();
         }
-        setLoading(false);
+        setRedirect(true);
+        
     }, [location.state])
 
-    if (!loading) {
+    if (redirect) {
         return user ? <Feed /> : <Login />;
     }
 }
