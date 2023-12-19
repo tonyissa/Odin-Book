@@ -20,11 +20,11 @@ export default function Login() {
                 mode: 'cors',
                 body: JSON.stringify({ id, password })
             })
+            const parsed = await response.json();
             setLoading(false)
             if (response.status === 200) {
-                navigate('')
+                navigate('.', { state: { user: parsed.user._doc } })
             } else {
-                const parsed = await response.json();
                 setError(parsed.message);
             }
         } catch (err) {

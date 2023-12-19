@@ -1,12 +1,40 @@
+import { useLocation } from 'react-router-dom';
 import Feed from '../Feed/index';
 import Login from '../Login/index';
+import { useState, useEffect } from 'react';
 
 export default function Redirect() {
-    let user;
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState();
+    const location = useLocation();
 
-    if (user) {
-        return <Feed />
-    } 
+    useEffect(() => {
+        async function checkAuth() {
+            try {
+                const response = await fetch('http://localhost:3000/api/auth', {
+                    mode: 'cors',
+                    credentials: 'include'
+                })
+                const parsed = await response.json();
+                console.log(parsed);
+                if (response.status === 200) {
+                    setUser(parsed.user);
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        }
 
-    return <Login />
+        if (location.state?.user) {
+            setUser(location.state.user);
+        } else {
+            checkAuth();
+        }
+        
+        setLoading(false);
+    })
+
+    if (!loading) {
+        return user ? <Feed /> : <Login />;
+    }
 }
