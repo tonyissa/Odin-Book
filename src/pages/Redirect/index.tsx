@@ -17,7 +17,7 @@ export default function Redirect() {
                 })
                 const parsed = await response.json();
                 if (response.status === 200) {
-                    setUser(parsed.user);
+                    setUser(parsed);
                 }
             } catch (err) {
                 console.log(err)

@@ -22,10 +22,9 @@ export default function CreateAccount() {
                 body: JSON.stringify({ email, username, password, confirm })
             })
             const parsed = await response.json();
-            console.log(parsed);
             setLoading(false);
             if (response.status === 200) {
-                navigate('.', { state: { user: parsed } })
+                navigate('..', { state: { user: parsed } })
             } else {
                 setErrors(parsed);
             }
@@ -36,16 +35,21 @@ export default function CreateAccount() {
 
     return <div className="h-screen flex justify-center items-center">
         <div className="border p-4 flex flex-col h-fit">
-            <input type="email" placeholder="Email" value={account.email} onChange={e => setAccount({ ...account, email: e.target.value })} />
-            <input type="text" placeholder="Desired username" value={account.username} onChange={e => setAccount({ ...account, username: e.target.value })} />
-            <input type="password" placeholder="Password" value={account.password} onChange={e => setAccount({ ...account, password: e.target.value })} />
-            <input type="password" placeholder="Confirm password" value={account.confirm} onChange={e => setAccount({ ...account, confirm: e.target.value })} />
-            <button onClick={createAccount} disabled={loading}>Create account</button>
+            <input type="email" placeholder="Email" name='email' autoComplete='email'
+             value={account.email} onChange={e => setAccount({ ...account, email: e.target.value })} />
+            <input type="text" placeholder="Desired username" name='username' autoComplete='username'
+             value={account.username} onChange={e => setAccount({ ...account, username: e.target.value })} />
+            <input type="password" placeholder="Password" name='new-password' autoComplete='new-password'
+             value={account.password} onChange={e => setAccount({ ...account, password: e.target.value })} />
+            <input type="password" placeholder="Confirm password" name='new-password' autoComplete='new-password'
+             value={account.confirm} onChange={e => setAccount({ ...account, confirm: e.target.value })} />
             <ul>
                 {errors.map((error, i) => {
                     return <li className='error-text' key={i}>{error.msg}</li>
                 })}
             </ul>
+            <button onClick={createAccount} disabled={loading}>Create account</button>
+            <button onClick={() => navigate('..')} disabled={loading}>Back to login</button>
         </div>
     </div>
 }

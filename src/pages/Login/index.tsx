@@ -21,9 +21,10 @@ export default function Login() {
                 body: JSON.stringify({ id, password })
             })
             const parsed = await response.json();
+            console.log(parsed);
             setLoading(false)
             if (response.status === 200) {
-                navigate('.', { state: { user: parsed.user._doc } })
+                navigate('.', { state: { user: parsed } })
             } else {
                 setError(parsed.message);
             }
@@ -34,16 +35,18 @@ export default function Login() {
 
     return <div className="h-screen flex justify-center items-center">
         <div className="border p-4 flex flex-col h-fit">
-            <input type="text" placeholder="Email" value={login.id} onChange={e => setLogin({ ...login, id: e.target.value })} />
-            <input type="password" placeholder="Password" value={login.password} onChange={e => setLogin({ ...login, password: e.target.value })} />
+            <input type="text" placeholder="Email or username" name='email' autoComplete='email' 
+            value={login.id} onChange={e => setLogin({ ...login, id: e.target.value })} />
+            <input type="password" placeholder="Password" name='password' autoComplete='password' 
+            value={login.password} onChange={e => setLogin({ ...login, password: e.target.value })} />
+            <ul>
+                <li className='error-text'>{error}</li>
+            </ul>
             <button onClick={handleUsernameLogin} disabled={loading}>Log in</button>
             <button disabled={loading}>Log in with github</button>
             <button disabled={loading}>Log in with google</button>
             <hr />
             <button><Link to='create-account'>Create account</Link></button>
-            <ul>
-                <li className='error-text'>{error}</li>
-            </ul>
         </div>
     </div>
 }
