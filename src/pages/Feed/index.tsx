@@ -1,5 +1,10 @@
+import { useContext } from 'react'
+import { UserContext } from '../../components/UserContext'
+
 export default function Feed() {
+    const user = useContext(UserContext);
+
     return <>
-        hello from logged in
-    </>;
+        <div>{user.username}</div>
+    </>
 }

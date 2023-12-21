@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Redirect from './pages/Redirect/index';
+import Redirect from './components/Redirect/index';
 import CreateAccount from './pages/CreateAccount';
 
 export default function App() {

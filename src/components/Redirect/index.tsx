@@ -1,11 +1,12 @@
 import { useLocation } from 'react-router-dom';
-import Feed from '../Feed/index';
-import Login from '../Login/index';
+import Login from '../../pages/Login/index';
 import { useState, useEffect } from 'react';
+import { UserContext } from '../UserContext';
+import Feed from '../../pages/Feed';
 
 export default function Redirect() {
     const [redirect, setRedirect] = useState(false);
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
     const location = useLocation();
 
     useEffect(() => {
@@ -34,6 +35,11 @@ export default function Redirect() {
     }, [location.state])
 
     if (redirect) {
-        return user ? <Feed /> : <Login />;
+        return user ? 
+        <UserContext.Provider value={user}>
+            <Feed />
+        </UserContext.Provider>
+        : 
+        <Login />;
     }
 }
