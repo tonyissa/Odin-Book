@@ -1,8 +1,7 @@
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Login from '../../pages/Login/index';
 import { useState, useEffect } from 'react';
 import { UserContext } from '../UserContext';
-import Feed from '../../pages/Feed';
 
 export default function Redirect() {
     const [redirect, setRedirect] = useState(false);
@@ -36,10 +35,10 @@ export default function Redirect() {
 
     if (redirect) {
         return user ? 
-        <UserContext.Provider value={user}>
-            <Feed />
-        </UserContext.Provider>
-        : 
-        <Login />;
+            <UserContext.Provider value={user}>
+                <Outlet />
+            </UserContext.Provider>
+            : 
+            <Login />;
     }
 }
