@@ -3,7 +3,7 @@ import Login from '../../pages/Login/index';
 import { useState, useEffect } from 'react';
 import { UserContext } from '../UserContext';
 
-export default function Redirect() {
+export default function ProtectedOutlet() {
     const [redirect, setRedirect] = useState(false);
     const [user, setUser] = useState(null);
     const location = useLocation();
