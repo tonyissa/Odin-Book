@@ -18,7 +18,7 @@ export default function Feed() {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ friends: user.friends, skipNum })
+                    body: JSON.stringify({ friends: user.friends, _id: user._id, skipNum })
                 });
                 const parsed = await response.json();
                 setData([...data, ...parsed]);
