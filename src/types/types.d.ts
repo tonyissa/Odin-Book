@@ -29,3 +29,14 @@ export type UserProps = {
         facebookId?: string
     }
 }
+
+type Post = {
+    _id: string,
+    body: string,
+    filename: string,
+    date: Date,
+    author: string,
+    likes: number
+}
+
+export type Posts = [] | Post[]

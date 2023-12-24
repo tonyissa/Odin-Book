@@ -19,6 +19,10 @@ export default function Sidebar() {
                     <img />
                     <p>Settings</p>
                 </div>
+                <div className='mb-4'>
+                    <img />
+                    <p>Logout</p>
+                </div>
             </ul>
         </nav>
     </aside>

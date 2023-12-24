@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Login from '../../pages/Login/index';
 import { useState, useEffect } from 'react';
 import { UserContext } from '../UserContext';
+import Header from '../Header';
 
 export default function ProtectedOutlet() {
     const [redirect, setRedirect] = useState(false);
@@ -36,6 +37,7 @@ export default function ProtectedOutlet() {
     if (redirect) {
         return user ? 
             <UserContext.Provider value={user}>
+                <Header />
                 <Outlet />
             </UserContext.Provider>
             : 
