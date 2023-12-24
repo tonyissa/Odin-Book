@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../UserContext';
 import { Posts } from '../../types/types';
+import CreatePost from '../CreatePost';
+import Post from '../Post';
 
 export default function Feed() {
     const [data, setData] = useState<Posts>([]);
@@ -37,7 +39,10 @@ export default function Feed() {
 
     if (data) {
         return <main onScroll={handleScroll} className="flex-1 flex justify-center mt-24">
-        this yo feed nigga
+            <CreatePost />
+            {data.map(post => {
+                return <Post key={post._id} data={post} />
+            })}
         </main>
     }
 }

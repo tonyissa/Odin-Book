@@ -18,25 +18,20 @@ export type User = Record<string, never> | {
 }
 
 export type UserProps = {
-    user: {
-        _id: string,
-        username: string,
-        email: string,
-        password: string,
-        about: string,
-        friends: [] | [string],
-        requests: [] | [string],
-        facebookId?: string
-    }
+    user: User
 }
 
-type Post = {
+export type Post = {
     _id: string,
     body: string,
     filename: string,
     date: Date,
     author: string,
     likes: number
+}
+
+export type PostProps = {
+    data: Post
 }
 
 export type Posts = [] | Post[]
