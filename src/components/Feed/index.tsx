@@ -4,7 +4,7 @@ import { Posts } from '../../types/types';
 
 export default function Feed() {
     const [data, setData] = useState<Posts>([]);
-    const [fetchNum, setFetchNum] = useState(1);
+    const [skipNum, setSkipNum] = useState(0);
     const user = useContext(UserContext);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function Feed() {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ friends: user.friends, fetchNum })
+                    body: JSON.stringify({ friends: user.friends, skipNum })
                 });
                 const parsed = await response.json();
                 setData([...data, ...parsed]);
@@ -27,17 +27,17 @@ export default function Feed() {
 
         getPosts();
 
-    }, [fetchNum])
+    }, [skipNum])
 
     async function handleScroll() {
-        if (fetchNum === 15211231) {
-            setFetchNum(fetchNum + 1);
+        if (skipNum === null) {
+            setSkipNum(skipNum + 6);
         }
     }
 
     if (data) {
-        return <main onScroll={handleScroll} className="flex-1 flex justify-center pt-5">
+        return <main onScroll={handleScroll} className="flex-1 flex justify-center mt-24">
         this yo feed nigga
-    </main>
+        </main>
     }
 }

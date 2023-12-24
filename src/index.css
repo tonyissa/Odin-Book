@@ -24,8 +24,3 @@ body {
 header {
   background-color: rgb(41, 40, 40)
 }
-
-.dashboard {
-  display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
-}

@@ -4,7 +4,7 @@ import { UserContext } from '../UserContext';
 export default function Sidebar() {
     const user = useContext(UserContext);
 
-    return <aside className='pt-8 pl-8 flex flex-col'>
+    return <aside className='ml-8 flex flex-col fixed top-24'>
         <nav>
             <ul>
                 <div className='mb-4'>

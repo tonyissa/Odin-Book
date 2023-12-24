@@ -6,7 +6,7 @@ import Feed from '../../components/Feed';
 export default function Dashboard() {
     // const user = useContext(UserContext);
 
-    return <div className='dashboard'>
+    return <div className='flex flex-col justify-center'>
         <Sidebar />
         <Feed />
     </div>
