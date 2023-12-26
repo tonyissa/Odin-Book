@@ -21,7 +21,7 @@ export type UserProps = {
     user: User
 }
 
-export type Post = {
+export type TPost = {
     _id: string,
     body: string,
     filename: string,
@@ -31,7 +31,11 @@ export type Post = {
 }
 
 export type PostProps = {
-    data: Post
+    data: TPost
 }
 
-export type Posts = [] | Post[]
+export type Posts = [] | TPost[]
+
+export type NewPostProps = {
+    handleNewPost: (post: TPost) => void
+}

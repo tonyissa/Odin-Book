@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
+import { NewPostProps } from '../../types/types';
 
-export default function CreatePost() {
+export default function CreatePost({ handleNewPost }: NewPostProps) {
     const [input, setInput] = useState('');
     const [warning, setWarning] = useState(false);
 
@@ -16,8 +17,9 @@ export default function CreatePost() {
                 body: JSON.stringify({ input })
             })
             if (response.status === 200) {
-                const parsed = response.json();
-                console.log(parsed);
+                const parsed = await response.json();
+                handleNewPost(parsed);
+                setInput('');
             }
         } catch (err) {
             console.log(err);
@@ -35,6 +37,6 @@ export default function CreatePost() {
         <h1 className={'self-center ' + warning ? 'invalid' : '' }>Create post</h1>
         <textarea value={input} onChange={handleChange} />
         <div className={'self-end ' + warning ? 'invalid' : '' }>{input.length}/3000</div>
-        <button disabled={warning} onClick={handleUpload}>upload image?</button>
+        <button disabled={warning} onClick={handleUpload}>upload?</button>
     </div>;
 }

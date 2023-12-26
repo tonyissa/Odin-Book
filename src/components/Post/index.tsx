@@ -2,6 +2,7 @@ import { PostProps } from '../../types/types';
 
 export default function Post({ data }: PostProps) {
     return <div>
-        {data.author}
+        <div>Author: {data.author}</div>
+        <div>{data.body}</div>
     </div>
 }

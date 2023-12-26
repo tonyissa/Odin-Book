@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../UserContext';
-import { Posts } from '../../types/types';
+import { Posts, TPost } from '../../types/types';
 import CreatePost from '../CreatePost';
 import Post from '../Post';
 
@@ -37,9 +37,14 @@ export default function Feed() {
         }
     }
 
+    function handleNewPost(post: TPost) {
+        setData([post, ...data])
+        setSkipNum(skipNum + data.length + 1);
+    }
+
     if (data) {
-        return <main onScroll={handleScroll} className="flex-1 flex justify-center mt-24">
-            <CreatePost />
+        return <main onScroll={handleScroll} className="flex-1 flex flex-col items-center mt-24">
+            <CreatePost handleNewPost={handleNewPost} />
             {data.map(post => {
                 return <Post key={post._id} data={post} />
             })}
