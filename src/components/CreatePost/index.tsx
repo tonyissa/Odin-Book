@@ -1,9 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { NewPostProps } from '../../types/types';
+import { UserContext } from '../UserContext';
 
 export default function CreatePost({ handleNewPost }: NewPostProps) {
     const [input, setInput] = useState('');
     const [warning, setWarning] = useState(false);
+    const user = useContext(UserContext);
 
     async function handleUpload() {
         try {
@@ -18,6 +20,7 @@ export default function CreatePost({ handleNewPost }: NewPostProps) {
             })
             if (response.status === 200) {
                 const parsed = await response.json();
+                parsed.author = { username: user.username }
                 handleNewPost(parsed);
                 setInput('');
             }

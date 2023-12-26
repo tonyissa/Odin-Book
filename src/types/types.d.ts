@@ -26,7 +26,9 @@ export type TPost = {
     body: string,
     filename: string,
     date: Date,
-    author: string,
+    author: {
+        username: string
+    },
     likes: number
 }
 
