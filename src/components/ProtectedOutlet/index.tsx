@@ -3,16 +3,27 @@ import Login from '../../pages/Login/index';
 import { useState, useEffect } from 'react';
 import { UserContext } from '../UserContext';
 import Header from '../Header';
+import { User } from '../../types/types';
 
 export default function ProtectedOutlet() {
+    const location = useLocation();
     const [redirect, setRedirect] = useState(false);
     const [user, setUser] = useState(null);
-    const location = useLocation();
     const navigate = useNavigate();
 
     function logoutWithMessage() {
         setUser(null);
         navigate('.', { state: { status: 'Please log back in' } });
+    }
+
+    function logout() {
+        setUser(null);
+        navigate('.');
+    }
+
+    function addMethodsToUser(user: User) {
+        user.logoutWithMessage = logoutWithMessage
+        user.logout = logout
     }
 
     useEffect(() => {
@@ -24,7 +35,7 @@ export default function ProtectedOutlet() {
                 })
                 if (response.status === 200) {
                     const parsedUser = await response.json();
-                    parsedUser.logoutWithMessage = logoutWithMessage;
+                    addMethodsToUser(parsedUser)
                     setUser(parsedUser);
                 }
             } catch (err) {
@@ -33,8 +44,10 @@ export default function ProtectedOutlet() {
         }
 
         if (location.state?.user) {
-            location.state.user.logoutWithMessage = logoutWithMessage;
+            addMethodsToUser(location.state.user)
             setUser(location.state.user);
+        } else if (location.state?.status) {
+            // do nothing
         } else {
             checkAuth();
         }

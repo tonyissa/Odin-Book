@@ -15,7 +15,8 @@ export type User = Record<string, never> | {
     friends: [] | [string],
     requests: [] | [string],
     facebookId?: string,
-    logoutWithMessage: () => void
+    logoutWithMessage: () => void,
+    logout: () => void
 }
 
 export type UserProps = {

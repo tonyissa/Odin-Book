@@ -4,6 +4,15 @@ import { UserContext } from '../UserContext';
 export default function Sidebar() {
     const user = useContext(UserContext);
 
+    async function handleLogout() {
+        try {
+            await fetch('http://localhost:3000/api/logout', { mode: 'cors', credentials: 'include' });
+            user.logout()
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return <aside className='ml-8 flex flex-col fixed top-24'>
         <nav>
             <ul>
@@ -21,7 +30,7 @@ export default function Sidebar() {
                 </div>
                 <div className='mb-4'>
                     <img />
-                    <p>Logout</p>
+                    <div className='sidebar-link' onClick={handleLogout}>Logout</div>
                 </div>
             </ul>
         </nav>
