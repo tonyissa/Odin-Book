@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Login from '../../pages/Login/index';
 import { useState, useEffect } from 'react';
 import { UserContext } from '../UserContext';
@@ -8,6 +8,12 @@ export default function ProtectedOutlet() {
     const [redirect, setRedirect] = useState(false);
     const [user, setUser] = useState(null);
     const location = useLocation();
+    const navigate = useNavigate();
+
+    function logoutWithMessage() {
+        setUser(null);
+        navigate('.', { state: { status: 'Please log back in' } });
+    }
 
     useEffect(() => {
         async function checkAuth() {
@@ -16,9 +22,10 @@ export default function ProtectedOutlet() {
                     mode: 'cors',
                     credentials: 'include'
                 })
-                const parsed = await response.json();
                 if (response.status === 200) {
-                    setUser(parsed);
+                    const parsedUser = await response.json();
+                    parsedUser.logoutWithMessage = logoutWithMessage;
+                    setUser(parsedUser);
                 }
             } catch (err) {
                 console.log(err)
@@ -26,6 +33,7 @@ export default function ProtectedOutlet() {
         }
 
         if (location.state?.user) {
+            location.state.user.logoutWithMessage = logoutWithMessage;
             setUser(location.state.user);
         } else {
             checkAuth();
@@ -41,6 +49,6 @@ export default function ProtectedOutlet() {
                 <Outlet />
             </UserContext.Provider>
             : 
-            <Login />;
+            <Login message={location.state?.status} />;
     }
 }

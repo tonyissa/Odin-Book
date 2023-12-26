@@ -18,10 +18,13 @@ export default function CreatePost({ handleNewPost }: NewPostProps) {
                 },
                 body: JSON.stringify({ input })
             })
+            if (response.status === 401) {
+                return user.logoutWithMessage();
+            }
             if (response.status === 200) {
-                const parsed = await response.json();
-                parsed.author = { username: user.username }
-                handleNewPost(parsed);
+                const parsedPost = await response.json();
+                parsedPost.author = { username: user.username }
+                handleNewPost(parsedPost);
                 setInput('');
             }
         } catch (err) {

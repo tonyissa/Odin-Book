@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
+import { LoginStatusProp } from '../../types/types';
 
-export default function Login() {
+export default function Login({ message }: LoginStatusProp ) {
     const [login, setLogin] = useState({ id: '', password: '' });
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState(message || '');
     const navigate = useNavigate();
 
     async function handleUsernameLogin() {
@@ -20,13 +21,12 @@ export default function Login() {
                 mode: 'cors',
                 body: JSON.stringify({ id, password })
             })
-            const parsed = await response.json();
-            console.log(parsed);
+            const parsedRes = await response.json();
             setLoading(false)
             if (response.status === 200) {
-                navigate('.', { state: { user: parsed } })
+                navigate('.', { state: { user: parsedRes } })
             } else {
-                setError(parsed.message);
+                setError(parsedRes.message);
             }
         } catch (err) {
             console.log(err);

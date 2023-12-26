@@ -19,13 +19,15 @@ export default function Feed() {
                     },
                     body: JSON.stringify({ friends: user.friends, _id: user._id, skipNum: data.length })
                 });
-                const parsed = await response.json();
-                setData([...data, ...parsed]);
+                const parsedPosts = await response.json();
+                setData([...data, ...parsedPosts]);
             } catch (err) {
                 console.log(err);
             }
         }
+
         getPosts();
+
     }, [])
 
     function handleNewPost(post: TPost) {

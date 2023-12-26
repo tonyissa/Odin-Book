@@ -14,7 +14,8 @@ export type User = Record<string, never> | {
     about: string,
     friends: [] | [string],
     requests: [] | [string],
-    facebookId?: string
+    facebookId?: string,
+    logoutWithMessage: () => void
 }
 
 export type UserProps = {
@@ -40,4 +41,8 @@ export type Posts = [] | TPost[]
 
 export type NewPostProps = {
     handleNewPost: (post: TPost) => void
+}
+
+export type LoginStatusProp = {
+    message: string
 }
