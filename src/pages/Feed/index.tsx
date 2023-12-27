@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
-import { UserContext } from '../UserContext';
+import { UserContext } from '../../components/UserContext';
 import { Posts, TPost } from '../../types/types';
-import CreatePost from '../CreatePost';
-import Post from '../Post';
+import CreatePost from '../../components/CreatePost';
+import Post from '../../components/Post';
 
 export default function Feed() {
     const [data, setData] = useState<Posts>([]);

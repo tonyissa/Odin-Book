@@ -3,7 +3,7 @@ import Login from '../../pages/Login/index';
 import { useState, useEffect } from 'react';
 import { UserContext } from '../UserContext';
 import Header from '../Header';
-import { User } from '../../types/types';
+import { TUser } from '../../types/types';
 
 export default function ProtectedOutlet() {
     const location = useLocation();
@@ -21,7 +21,7 @@ export default function ProtectedOutlet() {
         navigate('.');
     }
 
-    function addMethodsToUser(user: User) {
+    function addMethodsToUser(user: TUser) {
         user.logoutWithMessage = logoutWithMessage
         user.logout = logout
     }

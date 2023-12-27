@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
+import { NavLink } from 'react-router-dom';
 
 export default function Sidebar() {
     const user = useContext(UserContext);
@@ -7,9 +8,10 @@ export default function Sidebar() {
     async function handleLogout() {
         try {
             await fetch('http://localhost:3000/api/logout', { mode: 'cors', credentials: 'include' });
-            user.logout()
         } catch (err) {
             console.log(err);
+        } finally {
+            user.logout!()
         }
     }
 
@@ -18,7 +20,7 @@ export default function Sidebar() {
             <ul>
                 <div className='mb-4'>
                     <img />
-                    <p>{user.username}</p>
+                    <p>Your profile</p>
                 </div>
                 <div className='mb-4'>
                     <img />
@@ -26,7 +28,7 @@ export default function Sidebar() {
                 </div>
                 <div className='mb-4'>
                     <img />
-                    <p>Settings</p>
+                    <NavLink to='settings'>Settings</NavLink>
                 </div>
                 <div className='mb-4'>
                     <img />

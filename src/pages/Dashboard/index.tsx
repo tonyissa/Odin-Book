@@ -1,5 +1,5 @@
 import Sidebar from '../../components/Sidebar';
-import Feed from '../../components/Feed';
+import Feed from '../Feed';
 
 export default function Dashboard() {
 

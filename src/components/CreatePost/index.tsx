@@ -19,7 +19,7 @@ export default function CreatePost({ handleNewPost }: NewPostProps) {
                 body: JSON.stringify({ input })
             })
             if (response.status === 401) {
-                return user.logoutWithMessage();
+                return user.logoutWithMessage!();
             }
             if (response.status === 200) {
                 const parsedPost = await response.json();

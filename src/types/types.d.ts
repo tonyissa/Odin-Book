@@ -1,12 +1,12 @@
-export type Error = [] | [{
+export type Error = [] | {
     location: string,
     msg: string,
     path: string,
     type: string,
     value: string
-}]
+}[]
 
-export type User = Record<string, never> | {
+export type TUser = Record<string, never> | {
     _id: string,
     username: string,
     email: string,
@@ -15,12 +15,12 @@ export type User = Record<string, never> | {
     friends: [] | [string],
     requests: [] | [string],
     facebookId?: string,
-    logoutWithMessage: () => void,
-    logout: () => void
+    logoutWithMessage?: () => void,
+    logout?: () => void
 }
 
 export type UserProps = {
-    user: User
+    user: TUser
 }
 
 export type TPost = {
