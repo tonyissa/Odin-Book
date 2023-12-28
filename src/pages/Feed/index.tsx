@@ -12,13 +12,9 @@ export default function Feed() {
         async function getPosts() {
             try {
                 const response = await fetch('http://localhost:3000/api/feed', {
-                    method: 'post',
+                    method: 'get',
                     mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ friends: user.friends, skipNum: Array.isArray(data) ? data.length : 0 })
+                    credentials: 'include'
                 });
                 if (response.status === 401) {
                     return user.logoutWithMessage!();
