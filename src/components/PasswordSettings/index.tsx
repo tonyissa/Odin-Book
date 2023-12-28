@@ -1,18 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Errors } from '../../types/types';
+import { UserContext } from '../UserContext';
 
 export default function PasswordSettings({ active, setActive }: { active: boolean, setActive: (arg: boolean) => void }) {
+    const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
+    const [errors, setErrors] = useState<Errors>([]);
+    const user = useContext(UserContext);
 
     useEffect(() => {
         setActive(true);
     }, [])
 
+    async function changePassword() {
+        try {
+            const response = await fetch('http://localhost:3000/api/change-password', {
+                mode: 'cors',
+                method: 'post',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ oldPassword, password, confirm })
+            });
+            if (response.status === 401) {
+                return user.logoutWithMessage!();
+            }
+            if (response.status === 400) {
+                return setErrors(await response.json());
+            }
+            alert('success')
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return <div className="flex items-center justify-center h-screen">
-        <div className={'settings ' + (active ? 'active' : '')}>
-            <input type='text' value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' />
-            <input type='text' value={confirm} onChange={e => setConfirm(e.target.value)} placeholder='Confirm password' />
-            <button>Submit password change</button>
+        <div className={'flex flex-col settings ' + (active ? 'active' : '')}>
+            <input type='password' value={oldPassword} onChange={e => setOldPassword(e.target.value)} placeholder='Old Password' />
+            <input type='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='New Password' />
+            <input type='password' value={confirm} onChange={e => setConfirm(e.target.value)} placeholder='Confirm Password' />
+            <button onClick={changePassword}>Submit password change</button>
+            {errors.map(error => {
+                return <div key={error.msg}>{error.msg}</div>
+            })}
         </div>
     </div>
 }
