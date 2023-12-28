@@ -5,7 +5,7 @@ import CreatePost from '../../components/CreatePost';
 import Post from '../../components/Post';
 
 export default function Feed() {
-    const [data, setData] = useState<Posts>([]);
+    const [data, setData] = useState<Posts>(null);
     const user = useContext(UserContext);
 
     useEffect(() => {
@@ -14,13 +14,21 @@ export default function Feed() {
                 const response = await fetch('http://localhost:3000/api/feed', {
                     method: 'post',
                     mode: 'cors',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ friends: user.friends, _id: user._id, skipNum: data.length })
+                    body: JSON.stringify({ friends: user.friends, skipNum: Array.isArray(data) ? data.length : 0 })
                 });
+                if (response.status === 401) {
+                    return user.logoutWithMessage!();
+                }
                 const parsedPosts = await response.json();
-                setData([...data, ...parsedPosts]);
+                if (parsedPosts.length !== 0) { 
+                    setData([...parsedPosts]);
+                } else if (data?.[Symbol.iterator]) {
+                    setData([...data!, ...parsedPosts]);
+                }
             } catch (err) {
                 console.log(err);
             }
@@ -31,15 +39,23 @@ export default function Feed() {
     }, [])
 
     function handleNewPost(post: TPost) {
-        setData([post, ...data])
+        if (data?.[Symbol.iterator]) {
+            setData([post, ...data!]);
+        } else {
+            setData([post]);
+        }
     }
 
     if (data) {
-        return <main className="flex-1 flex flex-col items-center mt-24 gap-6">
+        return <main className="flex flex-col items-center pt-24 gap-6 min-h-screen mb-24">
             <CreatePost handleNewPost={handleNewPost} />
-            {data.map(post => {
+            {data.length > 0 ? 
+            data.map(post => {
                 return <Post key={post._id} data={post} />
-            })}
+            })
+            :
+            <h1>There are no posts here. Add friends so you can see their posts, and make your own!</h1>
+            }
         </main>
     }
 }

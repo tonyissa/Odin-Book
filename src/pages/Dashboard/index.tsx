@@ -3,8 +3,8 @@ import Feed from '../Feed';
 
 export default function Dashboard() {
 
-    return <div className='flex flex-col justify-center'>
+    return <>
         <Sidebar />
         <Feed />
-    </div>
+    </>
 }

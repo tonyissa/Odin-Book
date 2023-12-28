@@ -38,7 +38,7 @@ export type PostProps = {
     data: TPost
 }
 
-export type Posts = [] | TPost[]
+export type Posts = null | [] | TPost[]
 
 export type NewPostProps = {
     handleNewPost: (post: TPost) => void
