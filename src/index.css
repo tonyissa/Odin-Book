@@ -27,6 +27,13 @@ header {
   background-color: rgb(41, 40, 40)
 }
 
-.sidebar-link {
-  cursor: pointer;
+.settings {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease-in-out;
+}
+
+.active {
+  opacity: 100;
+  pointer-events: all;
 }

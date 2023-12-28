@@ -32,7 +32,7 @@ export default function Sidebar() {
                 </div>
                 <div className='mb-4'>
                     <img />
-                    <div className='sidebar-link' onClick={handleLogout}>Logout</div>
+                    <div className='cursor-pointer' onClick={handleLogout}>Logout</div>
                 </div>
             </ul>
         </nav>
