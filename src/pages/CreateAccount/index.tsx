@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import type { Error } from '../../types/types';
+import type { Errors } from '../../types/types';
 
-export default function CreateAccount() {
+export default function CreateAccount({ setCreate }: { setCreate: (arg1: boolean) => void }) {
     const [account, setAccount] = useState({ email: '', username: '', password: '', confirm: '' });
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState<Error>([]);
+    const [errors, setErrors] = useState<Errors>([]);
     const navigate = useNavigate();
     
     async function createAccount() {
@@ -49,7 +49,7 @@ export default function CreateAccount() {
                 })}
             </ul>
             <button onClick={createAccount} disabled={loading}>Create account</button>
-            <button onClick={() => navigate('..')} disabled={loading}>Back to login</button>
+            <button onClick={() => setCreate(false)} disabled={loading}>Back to login</button>
         </div>
     </div>
 }
