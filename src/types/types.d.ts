@@ -1,9 +1,9 @@
-export type Error = [] | {
-    location: string,
+export type Errors = [] | {
+    location?: string,
     msg: string,
-    path: string,
-    type: string,
-    value: string
+    path?: string,
+    type?: string,
+    value?: string
 }[]
 
 export type TUser = Record<string, never> | {
