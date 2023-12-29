@@ -20,11 +20,7 @@ export default function Feed() {
                     return user.logoutWithMessage!();
                 }
                 const parsedPosts = await response.json();
-                if (parsedPosts.length !== 0) { 
-                    setData([...parsedPosts]);
-                } else if (data?.[Symbol.iterator]) {
-                    setData([...data!, ...parsedPosts]);
-                }
+                setData([...data!, ...parsedPosts]);
             } catch (err) {
                 console.log(err);
             }
@@ -35,11 +31,7 @@ export default function Feed() {
     }, [])
 
     function handleNewPost(post: TPost) {
-        if (data?.[Symbol.iterator]) {
-            setData([post, ...data!]);
-        } else {
-            setData([post]);
-        }
+        setData([post, ...data!]);
     }
 
     if (data) {
