@@ -20,14 +20,6 @@ export default function Sidebar() {
             <ul>
                 <div className='mb-4'>
                     <img />
-                    <p>Your profile</p>
-                </div>
-                <div className='mb-4'>
-                    <img />
-                    <p>Find friends</p>
-                </div>
-                <div className='mb-4'>
-                    <img />
                     <NavLink to='settings'>Settings</NavLink>
                 </div>
                 <div className='mb-4'>

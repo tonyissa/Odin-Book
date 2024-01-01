@@ -5,7 +5,7 @@ import CreatePost from '../../components/CreatePost';
 import Post from '../../components/Post';
 
 export default function Feed() {
-    const [data, setData] = useState<Posts>(null);
+    const [data, setData] = useState<Posts>([]);
     const user = useContext(UserContext);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function Feed() {
                     return user.logoutWithMessage!();
                 }
                 const parsedPosts = await response.json();
-                setData([...data!, ...parsedPosts]);
+                setData([...parsedPosts]);
             } catch (err) {
                 console.log(err);
             }
@@ -31,19 +31,15 @@ export default function Feed() {
     }, [])
 
     function handleNewPost(post: TPost) {
-        setData([post, ...data!]);
+        setData([post, ...data]);
     }
 
     if (data) {
         return <main className="flex flex-col items-center pt-24 gap-6 min-h-screen mb-24">
             <CreatePost handleNewPost={handleNewPost} />
-            {data.length > 0 ? 
-            data.map(post => {
+            {data.map(post => {
                 return <Post key={post._id} data={post} />
-            })
-            :
-            <h1>There are no posts here. Add friends so you can see their posts, and make your own!</h1>
-            }
+            })}
         </main>
     }
 }

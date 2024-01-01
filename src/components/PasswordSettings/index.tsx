@@ -37,14 +37,20 @@ export default function PasswordSettings({ active, setActive }: { active: boolea
     }
 
     return <div className="flex items-center justify-center h-screen">
-        <div className={'flex flex-col settings ' + (active ? 'active' : '')}>
-            <input type='password' value={oldPassword} onChange={e => setOldPassword(e.target.value)} placeholder='Old Password' />
-            <input type='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='New Password' />
-            <input type='password' value={confirm} onChange={e => setConfirm(e.target.value)} placeholder='Confirm Password' />
-            <button onClick={changePassword}>Submit password change</button>
-            {errors.map(error => {
-                return <div key={error.msg}>{error.msg}</div>
-            })}
+        <div className={'flex settings ' + (active ? 'active' : '')}>
+            <div className="flex flex-col">
+                <h1>Please input your current password.</h1>
+                <h1>Leave blank if setting password for the first time.</h1>
+            </div>
+            <div className='flex flex-col'>
+                <input type='password' value={oldPassword} onChange={e => setOldPassword(e.target.value)} placeholder='Old Password' />
+                <input type='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='New Password' />
+                <input type='password' value={confirm} onChange={e => setConfirm(e.target.value)} placeholder='Confirm Password' />
+                <button onClick={changePassword}>Submit password change</button>
+                {errors.map(error => {
+                    return <div key={error.msg}>{error.msg}</div>
+                })}
+            </div>
         </div>
     </div>
 }

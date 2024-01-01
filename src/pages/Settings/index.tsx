@@ -22,7 +22,7 @@ export default function Settings() {
     }
 
     return <div className="flex items-center justify-around mx-96 h-screen">
-        <div className={'cursor-pointer settings ' + (active ? 'active' : '')} onClick={() => handleTransition('password')}>change password</div>
-        <div className={'cursor-pointer settings ' + (active ? 'active' : '')} onClick={() => handleTransition('delete')}>delete account</div>
+        <div className={'cursor-pointer settings ' + (active ? 'active' : '')} onClick={() => handleTransition('password')}>Change password</div>
+        <div className={'cursor-pointer settings ' + (active ? 'active' : '')} onClick={() => handleTransition('delete')}>Delete account</div>
     </div>
 }

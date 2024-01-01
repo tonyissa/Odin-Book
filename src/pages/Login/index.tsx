@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LoginStatusProp } from '../../types/types';
 import CreateAccount from '../CreateAccount';
 
@@ -39,7 +39,7 @@ export default function Login({ message }: LoginStatusProp ) {
         <CreateAccount setCreate={setCreate} />
         :
         <div className="h-screen flex justify-center items-center">
-            <div className="border p-4 flex flex-col h-fit">
+            <div className="border p-4 flex flex-col h-fit items-center">
                 <input type="text" placeholder="Email or username" name='email' autoComplete='email' 
                 value={login.id} onChange={e => setLogin({ ...login, id: e.target.value })} />
                 <input type="password" placeholder="Password" name='password' autoComplete='password' 
@@ -48,8 +48,7 @@ export default function Login({ message }: LoginStatusProp ) {
                     <li className='error-text'>{error}</li>
                 </ul>
                 <button onClick={handleUsernameLogin} disabled={loading}>Log in</button>
-                <button disabled={loading}>Log in with github</button>
-                <button disabled={loading}>Log in with google</button>
+                <Link to='http://localhost:3000/api/google/login'>Log in with google</Link>
                 <hr />
                 <button onClick={() => setCreate(true)}>Create account</button>
             </div>
