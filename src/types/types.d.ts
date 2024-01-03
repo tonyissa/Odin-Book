@@ -47,3 +47,14 @@ export type NewPostProps = {
 export type LoginStatusProp = {
     message: string
 }
+
+export type Message = {
+    sender: string,
+    body: string,
+    color: string,
+    id: string
+}
+
+export type ChatProps = {
+    messages: [] | Message[],
+}

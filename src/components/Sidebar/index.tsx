@@ -15,7 +15,7 @@ export default function Sidebar() {
         }
     }
 
-    return <aside className='ml-8 flex flex-col fixed top-24'>
+    return <aside className='ml-8 flex flex-col fixed top-20'>
         <nav>
             <ul>
                 <div className='mb-4'>

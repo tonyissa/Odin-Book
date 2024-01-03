@@ -35,7 +35,7 @@ export default function Feed() {
     }
 
     if (data) {
-        return <main className="flex flex-col items-center pt-24 gap-6 min-h-screen mb-24">
+        return <main className="flex flex-col items-center pt-24 gap-6 min-h-screen">
             <CreatePost handleNewPost={handleNewPost} />
             {data.map(post => {
                 return <Post key={post._id} data={post} />

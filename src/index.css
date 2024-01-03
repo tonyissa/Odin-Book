@@ -37,3 +37,12 @@ header {
   opacity: 100;
   pointer-events: all;
 }
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 3fr 2fr;
+}
+
+main {
+  grid-column: 2 / 3;
+}
